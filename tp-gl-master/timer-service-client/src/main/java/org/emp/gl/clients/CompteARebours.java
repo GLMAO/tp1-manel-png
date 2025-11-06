@@ -1,0 +1,70 @@
+package org.emp.gl.clients;
+
+import org.emp.gl.timer.service.TimerChangeListener;
+import org.emp.gl.timer.service.TimerService;
+
+public class CompteARebours implements TimerChangeListener {
+    
+    private String name;
+    private TimerService timerService;
+    private int compteur;
+    private boolean actif; // Pour gérer l'état actif/inactif
+
+    public CompteARebours(String name, TimerService timerService, int initialValue) {
+        this.name = name;
+        this.timerService = timerService;
+        this.compteur = initialValue;
+        this.actif = true;
+        
+        // S'inscrire comme listener
+        this.timerService.addTimeChangeListener(this);
+        
+        System.out.println(name + " initialisé avec " + compteur + " secondes");
+    }
+
+    @Override
+    public void propertyChange(String prop, Object oldValue, Object newValue) {
+        // Vérifier si le compte est toujours actif
+        if (!actif) return;
+        
+        // Décrémenter à chaque changement de seconde
+        if (SECONDE_PROP.equals(prop)) {
+            if (compteur > 0) {
+                compteur--;
+                System.out.println(name + " : " + compteur + " secondes restantes");
+                
+                // Se désinscrire automatiquement quand on arrive à 0
+                if (compteur == 0) {
+                    System.out.println("⏰ " + name + " : TERMINÉ !");
+                    seDesinscrire(); // Appel automatique comme demandé
+                }
+            }
+        }
+    }
+
+    /**
+     * Méthode pour se désinscrire automatiquement (point 2 de l'énoncé)
+     */
+    public void seDesinscrire() {
+        if (actif && timerService != null) {
+            this.timerService.removeTimeChangeListener(this);
+            this.actif = false;
+            System.out.println("🔴 " + name + " désinscrit du TimerService");
+        }
+    }
+
+    /**
+     * Méthode pour arrêter manuellement si nécessaire
+     */
+    public void arreter() {
+        seDesinscrire();
+    }
+
+    public int getCompteur() {
+        return compteur;
+    }
+    
+    public boolean estActif() {
+        return actif;
+    }
+}
