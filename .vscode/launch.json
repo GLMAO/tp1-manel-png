@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ApplicationAvecComptes",
+            "request": "launch",
+            "mainClass": "org.emp.gl.core.launcher.ApplicationAvecComptes",
+            "projectName": "launcher"
+        },
+        {
+            "type": "java",
+            "name": "ApplicationGraphique",
+            "request": "launch",
+            "mainClass": "org.emp.gl.core.launcher.ApplicationGraphique",
+            "projectName": "launcher"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

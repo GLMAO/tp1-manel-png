@@ -1,10 +1,7 @@
 package org.emp.gl.core.launcher;
 import org.emp.gl.time.service.impl.DummyTimeServiceImpl;
-import org.emp.gl.clients.Horloge ;
 import org.emp.gl.timer.service.TimerService;
-
 import java.util.Random;
-
 import org.emp.gl.clients.CompteARebours;
 
 public class App {

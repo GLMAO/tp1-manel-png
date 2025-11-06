@@ -1,5 +1,5 @@
 package org.emp.gl.clients;
-
+import java.beans.PropertyChangeEvent;
 import org.emp.gl.timer.service.TimerChangeListener;
 import org.emp.gl.timer.service.TimerService;
 
@@ -22,21 +22,18 @@ public class CompteARebours implements TimerChangeListener {
         System.out.println(name + " initialisé avec " + compteur + " secondes");
     }
 
-    @Override
-    public void propertyChange(String prop, Object oldValue, Object newValue) {
-        // Vérifier si le compte est toujours actif
+      @Override
+    public void propertyChange(PropertyChangeEvent evt) {
         if (!actif) return;
         
-        // Décrémenter à chaque changement de seconde
-        if (SECONDE_PROP.equals(prop)) {
+        if (TimerChangeListener.SECONDE_PROP.equals(evt.getPropertyName())) {
             if (compteur > 0) {
                 compteur--;
                 System.out.println(name + " : " + compteur + " secondes restantes");
                 
-                // Se désinscrire automatiquement quand on arrive à 0
                 if (compteur == 0) {
                     System.out.println("⏰ " + name + " : TERMINÉ !");
-                    seDesinscrire(); // Appel automatique comme demandé
+                    seDesinscrire();
                 }
             }
         }

@@ -19,18 +19,9 @@ public class Horloge implements TimerChangeListener{
     }
 
     @Override
-    public void propertyChange(String prop, Object oldValue, Object newValue) {
+    public void propertyChange(PropertyChangeEvent evt) {
         // Afficher l'heure à chaque changement de seconde
-        if (SECONDE_PROP.equals(prop)) {
-            afficherHeure();
-        }
-        // Vous pouvez aussi gérer les autres types de changement
-        else if (MINUTE_PROP.equals(prop)) {
-            System.out.println(name + " - Minute changée: " + oldValue + " → " + newValue);
-            afficherHeure();
-        }
-        else if (HEURE_PROP.equals(prop)) {
-            System.out.println(name + " - Heure changée: " + oldValue + " → " + newValue);
+        if (TimerChangeListener.SECONDE_PROP.equals(evt.getPropertyName())) {
             afficherHeure();
         }
     }
